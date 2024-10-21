@@ -15,6 +15,9 @@ namespace ClassLibrary
         public DbSet<OrganizationEntity> Organizations { get; set; }
         public DbSet<RequestEntity> Requests { get; set; }
         public DbSet<VolunteerEntity> Volunteers { get; set; }
+        public DbSet<VolunteerOrganizationEntity> VolunteerOrganizations { get; set; }
+        public DbSet<MessageEntity> Messages { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new VolunteerOrganizationConfiguration());

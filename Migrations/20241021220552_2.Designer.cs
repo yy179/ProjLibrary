@@ -4,6 +4,7 @@ using ClassLibrary;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClassLibrary.Migrations
 {
     [DbContext(typeof(ProjDbContext))]
-    partial class ProjDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241021220552_2")]
+    partial class _2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,7 +48,7 @@ namespace ClassLibrary.Migrations
 
                     b.HasIndex("MilitaryUnitId");
 
-                    b.ToTable("ContactPersons");
+                    b.ToTable("ContactPeople");
                 });
 
             modelBuilder.Entity("ClassLibrary.Models.MessageEntity", b =>
@@ -266,7 +269,7 @@ namespace ClassLibrary.Migrations
             modelBuilder.Entity("ClassLibrary.Models.ContactPersonEntity", b =>
                 {
                     b.HasOne("ClassLibrary.Models.MilitaryUnitEntity", "MilitaryUnit")
-                        .WithMany("ContactPersons")
+                        .WithMany("ContactPeople")
                         .HasForeignKey("MilitaryUnitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -361,7 +364,7 @@ namespace ClassLibrary.Migrations
 
                     b.Navigation("CompletedRequests");
 
-                    b.Navigation("ContactPersons");
+                    b.Navigation("ContactPeople");
                 });
 
             modelBuilder.Entity("ClassLibrary.Models.OrganizationEntity", b =>

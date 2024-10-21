@@ -10,7 +10,7 @@ namespace ClassLibrary.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<ContactPersonEntity> ContactPeople { get; set; }
+        public ICollection<ContactPersonEntity> ContactPersons { get; set; }
         public ICollection<RequestEntity> ActiveRequests { get; set; }
         public ICollection<RequestEntity> CompletedRequests { get; set; }
     }

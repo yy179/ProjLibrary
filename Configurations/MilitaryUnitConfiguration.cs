@@ -17,7 +17,7 @@ namespace ClassLibrary.Configurations
             builder.Property(x => x.Name).IsRequired().HasMaxLength(20);
 
             builder
-                .HasMany(x => x.ContactPeople)
+                .HasMany(x => x.ContactPersons)
                 .WithOne(x => x.MilitaryUnit)
                 .HasForeignKey(x => x.MilitaryUnitId)
                 .OnDelete(DeleteBehavior.Cascade);
