@@ -23,22 +23,22 @@ namespace ClassLibrary.Configurations
                 .HasOne(x => x.CompletedByVolunteer)
                 .WithMany(x => x.CompletedRequests)
                 .HasForeignKey(x => x.CompletedByVolunteerId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.NoAction);
             builder
                 .HasOne(x => x.TakenByVolunteer)
                 .WithMany(x => x.ActiveRequests)
                 .HasForeignKey(x => x.TakenByVolunteerId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.NoAction);
             builder
                 .HasOne(x => x.OrganizationCompletedBy)
                 .WithMany(x => x.CompletedRequests)
                 .HasForeignKey(x => x.OrganizationCompletedById)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.NoAction);
             builder
                 .HasOne(x => x.OrganizationTakenBy)
                 .WithMany(x => x.ActiveRequests)
                 .HasForeignKey(x => x.OrganizationTakenById)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
