@@ -25,7 +25,12 @@ namespace ClassLibrary.Services
         }
         public async Task<MilitaryUnitEntity> GetByIdAsync(int militaryUnitId)
         {
-            return await _militaryUnitRepository.GetByIdAsync(militaryUnitId);
+            var militaryUnit = await _militaryUnitRepository.GetByIdAsync(militaryUnitId);
+            if (militaryUnit == null)
+            {
+                throw new ArgumentException($"Volunteer with ID {militaryUnitId} not found.");
+            }
+            return militaryUnit;
         }
         public async Task<IEnumerable<RequestEntity>> GetCompletedRequests(int militaryUnitId)
         {

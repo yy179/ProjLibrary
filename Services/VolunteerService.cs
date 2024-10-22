@@ -37,16 +37,31 @@ namespace ClassLibrary.Services
 
         public async Task<List<RequestEntity>> GetCompletedRequests(int volunteerId)
         {
+            var volunteer = await _volunteerRepository.GetByIdAsync(volunteerId);
+            if (volunteer == null)
+            {
+                throw new ArgumentException($"Volunteer with ID {volunteerId} not found.");
+            }
             return await _volunteerRepository.GetCompletedRequests(volunteerId);
         }
 
         public async Task<List<RequestEntity>> GetActiveRequests(int volunteerId)
         {
+            var volunteer = await _volunteerRepository.GetByIdAsync(volunteerId);
+            if (volunteer == null)
+            {
+                throw new ArgumentException($"Volunteer with ID {volunteerId} not found.");
+            }
             return await _volunteerRepository.GetActiveRequests(volunteerId);
         }
 
         public async Task<List<OrganizationEntity>> GetOrganizations(int volunteerId)
         {
+            var volunteer = await _volunteerRepository.GetByIdAsync(volunteerId);
+            if (volunteer == null)
+            {
+                throw new ArgumentException($"Volunteer with ID {volunteerId} not found.");
+            }
             return await _volunteerRepository.GetOrganizations(volunteerId);
         }
 

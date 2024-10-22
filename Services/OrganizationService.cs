@@ -8,6 +8,7 @@ using FluentValidation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ClassLibrary.Repositories;
 
 namespace ClassLibrary.Services
 {
@@ -22,7 +23,12 @@ namespace ClassLibrary.Services
 
         public async Task<OrganizationEntity> GetByIdAsync(int organizationId)
         {
-            return await _organizationRepository.GetByIdAsync(organizationId);
+            var organization = await _organizationRepository.GetByIdAsync(organizationId);
+            if (organization == null)
+            {
+                throw new ArgumentException($"Volunteer with ID {organizationId} not found.");
+            }
+            return organization;
         }
 
         public async Task<IEnumerable<OrganizationEntity>> GetAllAsync()
