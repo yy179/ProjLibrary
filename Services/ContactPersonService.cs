@@ -29,7 +29,7 @@ namespace ClassLibrary.Services
             var contactPerson = await _contactPersonRepository.GetByIdAsync(contactPersonId);
             if (contactPerson == null)
             {
-                throw new ArgumentException($"Volunteer with ID {contactPersonId} not found.");
+                throw new ArgumentException($"Contact person with ID {contactPersonId} not found.");
             }
             return contactPerson;
         }
@@ -38,7 +38,7 @@ namespace ClassLibrary.Services
             var militaryUnit = await _contactPersonRepository.GetByMilitaryUnitId(militaryUnitId);
             if (militaryUnit == null)
             {
-                throw new ArgumentException($"Volunteer with ID {militaryUnitId} not found.");
+                throw new ArgumentException($"Military Unit with ID {militaryUnitId} not found.");
             }
             return await _contactPersonRepository.GetByMilitaryUnitId(militaryUnitId);
         }
@@ -57,7 +57,7 @@ namespace ClassLibrary.Services
             var volunteer = await _contactPersonRepository.GetByIdAsync(contactPersonId);
             if (volunteer == null)
             {
-                throw new ArgumentException($"Volunteer with ID {contactPersonId} not found.");
+                throw new ArgumentException($"Contact person with ID {contactPersonId} not found.");
             }
             await _contactPersonRepository.DeleteAsync(contactPersonId);
         }

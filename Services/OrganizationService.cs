@@ -26,7 +26,7 @@ namespace ClassLibrary.Services
             var organization = await _organizationRepository.GetByIdAsync(organizationId);
             if (organization == null)
             {
-                throw new ArgumentException($"Volunteer with ID {organizationId} not found.");
+                throw new ArgumentException($"Organization with ID {organizationId} not found.");
             }
             return organization;
         }

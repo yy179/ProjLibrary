@@ -28,7 +28,7 @@ namespace ClassLibrary.Services
             var militaryUnit = await _militaryUnitRepository.GetByIdAsync(militaryUnitId);
             if (militaryUnit == null)
             {
-                throw new ArgumentException($"Volunteer with ID {militaryUnitId} not found.");
+                throw new ArgumentException($"Military Unit with ID {militaryUnitId} not found.");
             }
             return militaryUnit;
         }
