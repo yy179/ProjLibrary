@@ -23,9 +23,26 @@ namespace ClassLibrary.Repositories
             return await _context.Volunteers.ToListAsync();
         }
 
-        public async Task<VolunteerEntity> GetByIdAsync(int id)
+        public async Task<VolunteerEntity> GetByIdAsync(int volunteerId)
         {
-            return await _context.Volunteers.FindAsync(id);
+            return await _context.Volunteers.FindAsync(volunteerId);
+        }
+        public async Task<List<RequestEntity>> GetCompletedRequests(int volunteerId)
+        {
+            return await _context.Volunteers.Where(v => v.Id == volunteerId).SelectMany(v => v.CompletedRequests).ToListAsync();
+        }
+        public async Task<List<RequestEntity>> GetActiveRequests(int volunteerId)
+        {
+            return await _context.Volunteers.Where(v => v.Id == volunteerId).SelectMany(v => v.ActiveRequests).ToListAsync();
+        }
+        public async Task<List<OrganizationEntity>> GetOrganizations(int volunteerId)
+        {
+            var volunteer = await _context.Volunteers
+                .Include(v => v.VolunteerOrganizations)
+                    .ThenInclude(vo => vo.Organization)
+                .FirstOrDefaultAsync(v => v.Id == volunteerId);
+
+            return volunteer?.VolunteerOrganizations.Select(vo => vo.Organization).ToList();
         }
 
         public async Task AddAsync(VolunteerEntity volunteer)
@@ -40,12 +57,12 @@ namespace ClassLibrary.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(int volunteerId)
         {
-            var entity = await _context.Volunteers.FindAsync(id);
-            if (entity != null)
+            var volunteer = await _context.Volunteers.FindAsync(volunteerId);
+            if (volunteer != null)
             {
-                _context.Volunteers.Remove(entity);
+                _context.Volunteers.Remove(volunteer);
                 await _context.SaveChangesAsync();
             }
         }

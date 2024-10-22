@@ -10,9 +10,10 @@ namespace ClassLibrary.Repositories.interfaces
     public interface IRequestRepository
     {
         Task<IEnumerable<RequestEntity>> GetAllAsync();
-        Task<RequestEntity> GetByIdAsync(int id);
+        Task<RequestEntity> GetByIdAsync(int requestId);
+        Task<IEnumerable<RequestEntity>> GetByStatusAsync(string status);
         Task AddAsync(RequestEntity request);
         Task UpdateAsync(RequestEntity request);
-        Task DeleteAsync(int id);
+        Task DeleteAsync(int requestId);
     }
 }

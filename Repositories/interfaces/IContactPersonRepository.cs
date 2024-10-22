@@ -10,9 +10,10 @@ namespace ClassLibrary.Repositories.interfaces
     public interface IContactPersonRepository
     {
         Task<IEnumerable<ContactPersonEntity>> GetAllAsync();
-        Task<ContactPersonEntity> GetByIdAsync(int id);
+        Task<ContactPersonEntity> GetByIdAsync(int contactPersonId);
+        Task<IEnumerable<ContactPersonEntity>> GetByMilitaryUnitId(int militaryUnitId);
         Task AddAsync(ContactPersonEntity contactPerson);
         Task UpdateAsync(ContactPersonEntity contactPerson);
-        Task DeleteAsync(int id);
+        Task DeleteAsync(int contactPersonId);
     }
 }

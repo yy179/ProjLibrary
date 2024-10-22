@@ -10,7 +10,10 @@ namespace ClassLibrary.Repositories.interfaces
     public interface IOrganizationRepository
     {
         Task<IEnumerable<OrganizationEntity>> GetAllAsync();
-        Task<OrganizationEntity> GetByIdAsync(int id);
+        Task<OrganizationEntity> GetByIdAsync(int organizationId);
+        Task<List<VolunteerEntity>> GetVolunteers(int organizationId);
+        Task<List<RequestEntity>> GetCompletedRequests(int organizationId);
+        Task<List<RequestEntity>> GetActiveRequests(int organizationId);
         Task AddAsync(OrganizationEntity organization);
         Task UpdateAsync(OrganizationEntity organization);
         Task DeleteAsync(int id);

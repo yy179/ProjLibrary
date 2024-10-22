@@ -18,34 +18,39 @@ namespace ClassLibrary.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<VolunteerOrganizationEntity>> GetAllAsync()
+        public async Task<List<OrganizationEntity>> GetOrganizationsForVolunteer(int volunteerId)
         {
-            return await _context.VolunteerOrganizations.ToListAsync();
+            return await _context.VolunteerOrganizations
+                .Where(vo => vo.VolunteerId == volunteerId)
+                .Select(vo => vo.Organization)
+                .ToListAsync();
         }
-
-        public async Task<VolunteerOrganizationEntity> GetByIdAsync(int id)
+        public async Task<List<VolunteerEntity>> GetVolunteersForOrganization(int organizationId)
         {
-            return await _context.VolunteerOrganizations.FindAsync(id);
+            return await _context.VolunteerOrganizations
+                .Where(vo => vo.OrganizationId == organizationId)
+                .Select(vo => vo.Volunteer)
+                .ToListAsync();
         }
-
-        public async Task AddAsync(VolunteerOrganizationEntity volunteerOrganization)
+        public async Task AddVolunteerToOrganization(int volunteerId, int organizationId)
         {
-            await _context.VolunteerOrganizations.AddAsync(volunteerOrganization);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task UpdateAsync(VolunteerOrganizationEntity volunteerOrganization)
-        {
-            _context.VolunteerOrganizations.Update(volunteerOrganization);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-            var entity = await _context.VolunteerOrganizations.FindAsync(id);
-            if (entity != null)
+            var volunteerOrganization = new VolunteerOrganizationEntity
             {
-                _context.VolunteerOrganizations.Remove(entity);
+                VolunteerId = volunteerId,
+                OrganizationId = organizationId
+            };
+
+            _context.VolunteerOrganizations.Add(volunteerOrganization);
+            await _context.SaveChangesAsync();
+        }
+        public async Task RemoveVolunteerFromOrganization(int volunteerId, int organizationId)
+        {
+            var volunteerOrganization = await _context.VolunteerOrganizations
+                .FirstOrDefaultAsync(vo => vo.VolunteerId == volunteerId && vo.OrganizationId == organizationId);
+
+            if (volunteerOrganization != null)
+            {
+                _context.VolunteerOrganizations.Remove(volunteerOrganization);
                 await _context.SaveChangesAsync();
             }
         }

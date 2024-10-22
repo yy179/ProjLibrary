@@ -19,14 +19,20 @@ namespace ClassLibrary.Repositories
             _context = context;
         }
 
-        public async Task<RequestEntity> GetByIdAsync(int id)
+        public async Task<RequestEntity> GetByIdAsync(int requestId)
         {
-            return await _context.Requests.FindAsync(id);
+            return await _context.Requests.FindAsync(requestId);
         }
 
         public async Task<IEnumerable<RequestEntity>> GetAllAsync()
         {
             return await _context.Requests.ToListAsync();
+        }
+        public async Task<IEnumerable<RequestEntity>> GetByStatusAsync(string status)
+        {
+            return await _context.Requests
+                .Where(req => req.Status == status)
+                .ToListAsync();
         }
         public async Task AddAsync(RequestEntity request)
         {
@@ -40,9 +46,9 @@ namespace ClassLibrary.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(int requestId)
         {
-            var request = await _context.Requests.FindAsync(id);
+            var request = await _context.Requests.FindAsync(requestId);
             if (request != null)
             {
                 _context.Requests.Remove(request);

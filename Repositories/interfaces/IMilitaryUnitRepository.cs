@@ -10,9 +10,12 @@ namespace ClassLibrary.Repositories.interfaces
     public interface IMilitaryUnitRepository
     {
         Task<IEnumerable<MilitaryUnitEntity>> GetAllAsync();
-        Task<MilitaryUnitEntity> GetByIdAsync(int id);
+        Task<MilitaryUnitEntity> GetByIdAsync(int militaryUnitId);
+        Task<IEnumerable<RequestEntity>> GetActiveRequests(int militaryUnitId);
+        Task<IEnumerable<RequestEntity>> GetCompletedRequests(int militaryUnitId);
+        Task<IEnumerable<ContactPersonEntity>> GetContactPersons(int militaryUnitId);
         Task AddAsync(MilitaryUnitEntity militaryUnit);
         Task UpdateAsync(MilitaryUnitEntity militaryUnit);
-        Task DeleteAsync(int id);
+        Task DeleteAsync(int militaryUnitId);
     }
 }

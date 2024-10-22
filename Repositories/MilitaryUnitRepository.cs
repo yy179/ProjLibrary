@@ -18,14 +18,41 @@ namespace ClassLibrary.Repositories
             _context = context;
         }
 
-        public async Task<MilitaryUnitEntity> GetByIdAsync(int id)
+        public async Task<MilitaryUnitEntity> GetByIdAsync(int militaryUnitId)
         {
-            return await _context.MilitaryUnits.FindAsync(id);
+            return await _context.MilitaryUnits.FindAsync(militaryUnitId);
         }
 
         public async Task<IEnumerable<MilitaryUnitEntity>> GetAllAsync()
         {
             return await _context.MilitaryUnits.ToListAsync();
+        }
+        public async Task<IEnumerable<RequestEntity>> GetActiveRequests(int militaryUnitId)
+        {
+            var militaryUnit = await _context.MilitaryUnits
+                .Include(mu => mu.ActiveRequests) 
+                .FirstOrDefaultAsync(mu => mu.Id == militaryUnitId);
+
+            return militaryUnit?.ActiveRequests;
+        }
+
+        public async Task<IEnumerable<RequestEntity>> GetCompletedRequests(int militaryUnitId)
+        {
+            var militaryUnit = await _context.MilitaryUnits
+                .Include(mu => mu.CompletedRequests) 
+                .FirstOrDefaultAsync(mu => mu.Id == militaryUnitId);
+
+            return militaryUnit?.CompletedRequests;
+        }
+
+
+        public async Task<IEnumerable<ContactPersonEntity>> GetContactPersons(int militaryUnitId)
+        {
+            var militaryUnit = await _context.MilitaryUnits
+                .Include(mu => mu.ContactPersons) 
+                .FirstOrDefaultAsync(mu => mu.Id == militaryUnitId);
+
+            return militaryUnit?.ContactPersons;
         }
 
         public async Task AddAsync(MilitaryUnitEntity militaryUnit)
@@ -40,9 +67,9 @@ namespace ClassLibrary.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(int militaryUnitId)
         {
-            var militaryUnit = await _context.MilitaryUnits.FindAsync(id);
+            var militaryUnit = await _context.MilitaryUnits.FindAsync(militaryUnitId);
             if (militaryUnit != null)
             {
                 _context.MilitaryUnits.Remove(militaryUnit);

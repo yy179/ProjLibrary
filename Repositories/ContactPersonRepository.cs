@@ -18,16 +18,21 @@ namespace ClassLibrary.Repositories
             _context = context;
         }
 
-        public async Task<ContactPersonEntity> GetByIdAsync(int id)
+        public async Task<ContactPersonEntity> GetByIdAsync(int contactPersonId)
         {
-            return await _context.ContactPersons.FindAsync(id);
+            return await _context.ContactPersons.FindAsync(contactPersonId);
         }
 
         public async Task<IEnumerable<ContactPersonEntity>> GetAllAsync()
         {
             return await _context.ContactPersons.ToListAsync();
         }
-
+        public async Task<IEnumerable<ContactPersonEntity>> GetByMilitaryUnitId(int militaryUnitId)
+        {
+            return await _context.ContactPersons
+                .Where(cp => cp.MilitaryUnitId == militaryUnitId)
+                .ToListAsync();
+        }
         public async Task AddAsync(ContactPersonEntity contactPerson)
         {
             await _context.ContactPersons.AddAsync(contactPerson);
@@ -40,9 +45,9 @@ namespace ClassLibrary.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(int contactPersonId)
         {
-            var contactPerson = await _context.ContactPersons.FindAsync(id);
+            var contactPerson = await _context.ContactPersons.FindAsync(contactPersonId);
             if (contactPerson != null)
             {
                 _context.ContactPersons.Remove(contactPerson);

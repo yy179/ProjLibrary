@@ -23,21 +23,22 @@ namespace ClassLibrary.Repositories
             return await _context.Messages.FindAsync(id);
         }
 
-        public async Task<IEnumerable<MessageEntity>> GetAllAsync()
-        {
-            return await _context.Messages.ToListAsync();
-        }
-
         public async Task AddAsync(MessageEntity message)
         {
             await _context.Messages.AddAsync(message);
             await _context.SaveChangesAsync();
         }
-
-        public async Task UpdateAsync(MessageEntity message)
+        public async Task<List<MessageEntity>> GetMessagesSentByVolunteerAsync(int volunteerId)
         {
-            _context.Messages.Update(message);
-            await _context.SaveChangesAsync();
+            return await _context.Messages
+                .Where(m => m.FromVolunteerId == volunteerId)
+                .ToListAsync();
+        }
+        public async Task<List<MessageEntity>> GetMessagesReceivedByVolunteerAsync(int volunteerId)
+        {
+            return await _context.Messages
+                .Where(m => m.ToVolunteerId == volunteerId)
+                .ToListAsync();
         }
 
         public async Task DeleteAsync(int id)

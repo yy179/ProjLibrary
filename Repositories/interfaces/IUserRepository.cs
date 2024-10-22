@@ -9,7 +9,9 @@ namespace ClassLibrary.Repositories.interfaces
 {
     public interface IUserRepository
     {
+        Task<IEnumerable<UserEntity>> GetAllAsync();
         Task<UserEntity> GetByIdAsync(int id);
+        Task<IEnumerable<UserEntity>> GetByRoleAsync(string role);
         Task AddAsync(UserEntity user);
         Task UpdateAsync(UserEntity user);
         Task DeleteAsync(int id);

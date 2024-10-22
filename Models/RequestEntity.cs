@@ -14,7 +14,7 @@ namespace ClassLibrary.Models
         public string Description { get; set; }
         public DateTime EndDate { get; set; }
         public int Importance { get; set; } 
-
+        public string Status { get; set; }
         public int? CompletedByVolunteerId { get; set; } 
         public VolunteerEntity CompletedByVolunteer { get; set; }
 

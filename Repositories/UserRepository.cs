@@ -27,7 +27,12 @@ namespace ClassLibrary.Repositories
         {
             return await _context.Users.ToListAsync();
         }
-
+        public async Task<IEnumerable<UserEntity>> GetByRoleAsync(string role)
+        {
+            return await _context.Users
+                .Where(user => user.Role == role)
+                .ToListAsync();
+        }
         public async Task AddAsync(UserEntity user)
         {
             await _context.Users.AddAsync(user);
