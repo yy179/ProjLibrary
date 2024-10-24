@@ -13,9 +13,9 @@ namespace ClassLibrary.Models
         public string City { get; set; }
         public string Description { get; set; }
 
-        public ICollection<RequestEntity> CompletedRequests { get; set; }
-        public ICollection<RequestEntity> ActiveRequests { get; set; }
-        public ICollection<VolunteerOrganizationEntity> VolunteerOrganizations { get; set; }
+        public ICollection<RequestEntity>? CompletedRequests { get; set; }
+        public ICollection<RequestEntity>? ActiveRequests { get; set; }
+        public ICollection<VolunteerOrganizationEntity>? VolunteerOrganizations { get; set; }
 
     }
 }
